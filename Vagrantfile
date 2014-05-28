@@ -5,16 +5,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
+  config.vm.hostname = 'packstack.dev'
+
   $script = <<SCRIPT
     sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
     sudo cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
+    # should be a better way of doing this
+    ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+    echo $ipaddress packstack.dev packstack | sudo tee -a /etc/hosts
+
+    # iptables exits with 6 if this file doesn't exist and the packstack recipes fail
     sudo touch /etc/sysconfig/iptables
 
     sudo yum update -y
 
     sudo yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
-    sudo yum install -y openstack-packstack
+    sudo yum install -y openstack-packstack vim
 
     sudo packstack --allinone
 
