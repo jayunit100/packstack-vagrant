@@ -14,6 +14,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 4
   end
 
+  config.vm.network "forwarded_port", guest: 80, host: 9080
+
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
     config.cache.synced_folder_opts = {
