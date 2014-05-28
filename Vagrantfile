@@ -29,10 +29,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
     # should be a better (idempotent) way of doing this
-    ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-    sudo sed -i '/#{HOSTNAME}/d' /etc/hosts
-    echo $ipaddress #{HOSTNAME} | sudo tee -a /etc/hosts
-
+    #ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+    #sudo sed -i '/#{HOSTNAME}/d' /etc/hosts
+    #echo $ipaddress #{HOSTNAME} | sudo tee -a /etc/hosts
     # iptables exits with 6 if this file doesn't exist and the packstack recipes fail
     sudo touch /etc/sysconfig/iptables
 
