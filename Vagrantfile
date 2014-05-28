@@ -14,13 +14,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 4
   end
 
-  #if Vagrant.has_plugin?("vagrant-cachier")
-  #  config.cache.scope = :box
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
   #  config.cache.synced_folder_opts = {
   #    type: :nfs,
   #    mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
   #  }
-  #end
+  end
 
   $script = <<SCRIPT
     # packstack sshes back into the vagrant instance with this key
@@ -29,6 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # should be a better (idempotent) way of doing this
     ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+    sudo sed -i '/packstack.dev/d' /etc/hosts
     echo $ipaddress packstack.dev packstack | sudo tee -a /etc/hosts
 
     # iptables exits with 6 if this file doesn't exist and the packstack recipes fail
