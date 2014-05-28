@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
     sudo cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-    # should be a better way of doing this
+    # should be a better (idempotent) way of doing this
     ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
     echo $ipaddress packstack.dev packstack | sudo tee -a /etc/hosts
 
