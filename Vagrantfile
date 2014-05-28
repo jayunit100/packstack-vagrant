@@ -10,8 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "private_network",  ip: "192.168.50.4"
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    v.cpus = 2
+    v.memory = 4096
+    v.cpus = 4
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")
