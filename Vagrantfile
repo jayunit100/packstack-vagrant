@@ -10,6 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
     sudo yum install -y openstack-packstack
     packstack --allinone
+    sed -i 's/^libvirt_type=kvm/libvirt_type=qemu/g' /etc/nova/nova.conf
     date > /etc/vagrant_provisioned_at
 SCRIPT
 
