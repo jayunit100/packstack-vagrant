@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   $script = <<SCRIPT
     # packstack sshes back into the vagrant instance with this key
-    [ -f ! ~/.ssh/id_rsa ] && sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+    [ ! -f ~/.ssh/id_rsa ] && sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
     sudo cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 
     # should be a better (idempotent) way of doing this
