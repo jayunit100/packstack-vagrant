@@ -42,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo packstack --allinone
 
     sudo sed -i 's/^libvirt_type=kvm/libvirt_type=qemu/g' /etc/nova/nova.conf
+    sudo service openstack-nova-compute restart
 
     date | sudo tee /etc/vagrant_provisioned_at
 SCRIPT
