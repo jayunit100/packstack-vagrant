@@ -7,22 +7,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = 'packstack.dev'
 
-  config.vm.network "private_network",  ip: "192.168.50.4"
+  config.vm.network "public_network"
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 4096
     v.cpus = 4
   end
 
-  config.vm.network "forwarded_port", guest: 80, host: 9080
-
-  if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.scope = :box
-    config.cache.synced_folder_opts = {
-      type: :nfs,
-      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
-    }
-  end
+  #if Vagrant.has_plugin?("vagrant-cachier")
+  #  config.cache.scope = :box
+  #  config.cache.synced_folder_opts = {
+  #    type: :nfs,
+  #    mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+  #  }
+  #end
 
   $script = <<SCRIPT
     # packstack sshes back into the vagrant instance with this key
