@@ -25,8 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   $script = <<SCRIPT
     # packstack sshes back into the vagrant instance with this key
-    sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
-    sudo cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    [ -f ! ~/.ssh/id_rsa ] && sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+    sudo cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 
     # should be a better (idempotent) way of doing this
     #ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
