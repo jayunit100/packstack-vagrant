@@ -9,6 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
     sudo cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
+    sudo touch /etc/sysconfig/iptables
+
     sudo yum update -y
 
     sudo yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
