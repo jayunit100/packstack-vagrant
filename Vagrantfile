@@ -1,11 +1,12 @@
 VAGRANTFILE_API_VERSION = "2"
+HOSTNAME = "packstack.dev"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos65-x86_64-20140116"
 
   config.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
-  config.vm.hostname = 'packstack.dev'
+  config.vm.hostname = HOSTNAME
 
   config.vm.network "public_network"
 
@@ -29,8 +30,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # should be a better (idempotent) way of doing this
     ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-    sudo sed -i '/packstack.dev/d' /etc/hosts
-    echo $ipaddress packstack.dev packstack | sudo tee -a /etc/hosts
+    sudo sed -i '/#{HOSTNAME}/d' /etc/hosts
+    echo $ipaddress #{HOSTNAME} | sudo tee -a /etc/hosts
 
     # iptables exits with 6 if this file doesn't exist and the packstack recipes fail
     sudo touch /etc/sysconfig/iptables
