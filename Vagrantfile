@@ -1,20 +1,19 @@
 VAGRANTFILE_API_VERSION = "2"
 HOSTNAME = "packstack.dev"
+BOX_URL = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos65-x86_64-20140116"
 
-  config.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
-
+  config.vm.box_url = BOX_URL
   config.vm.hostname = HOSTNAME
 
   config.vm.network "public_network"
 
-
   config.vm.provider "virtualbox" do |v|
     v.memory = 4096
     v.cpus = 4
-    v.customize ["modifyvm", :id, "--ioapic", "on"]
+    v.customize ["modifyvm", :id, "--ioapic", "on", "--pae", "on", "--hwvirtex", "on"]
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")
