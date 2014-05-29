@@ -11,9 +11,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "public_network"
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 4096
-    v.cpus = 4
-    v.customize ["modifyvm", :id, "--ioapic", "on", "--pae", "on", "--hwvirtex", "on"]
+    v.customize ["modifyvm", :id, "--cpus", 4]
+    v.customize ["modifyvm", :id, "--hwvirtex", "on"]
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+    v.customize ["modifyvm", :id, "--memory", 4096]
+    v.customize ["modifyvm", :id, "--pae", "on"]
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")
