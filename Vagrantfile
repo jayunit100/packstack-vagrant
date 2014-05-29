@@ -17,10 +17,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
-  #  config.cache.synced_folder_opts = {
-  #    type: :nfs,
-  #    mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
-  #  }
+    # nfs doesnt work on bridged networks
+    #  config.cache.synced_folder_opts = {
+    #    type: :nfs,
+    #    mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+    #  }
   end
 
   $script = <<SCRIPT
@@ -28,10 +29,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     [ ! -f ~/.ssh/id_rsa ] && sudo ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
     sudo cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 
-    # should be a better (idempotent) way of doing this
-    #ipaddress=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-    #sudo sed -i '/#{HOSTNAME}/d' /etc/hosts
-    #echo $ipaddress #{HOSTNAME} | sudo tee -a /etc/hosts
     # iptables exits with 6 if this file doesn't exist and the packstack recipes fail
     sudo touch /etc/sysconfig/iptables
 
