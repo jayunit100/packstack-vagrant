@@ -39,6 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     sudo yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
     sudo yum install -y openstack-packstack vim
+    sudo yum install "openstack-heat-*" python-heatclient
 
     sudo packstack --allinone
 
