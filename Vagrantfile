@@ -41,7 +41,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo yum install -y openstack-packstack vim
     sudo yum install "openstack-heat-*" python-heatclient
 
-    sudo packstack --allinone
+    sudo packstack --allinone                     \
+                   --os-heat-install=y            \
+                   --os-heat-cloudwatch-install=y \
+                   --os-heat-cfn-install=y
 
     sudo sed -i 's/^virt_type=kvm/virt_type=qemu/g' /etc/nova/nova.conf
     sudo service openstack-nova-compute restart
