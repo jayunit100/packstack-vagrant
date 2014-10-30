@@ -1,11 +1,9 @@
 VAGRANTFILE_API_VERSION = "2"
 HOSTNAME = "packstack.dev"
-BOX_URL = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "centos65-x86_64-20140116"
 
-  config.vm.box_url = BOX_URL
+  config.vm.box = "jayunit100/centos7"
   config.vm.hostname = HOSTNAME
 
   config.vm.network "public_network"
@@ -37,6 +35,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     sudo yum update -y
 
+    sudo yum install -y python-qpid python-httplib2 python-simplejson python-iso8601 python-futures 
+    sudo yum install -y python-iso8601 python-keyring python-kombu python-posix_ipc 
     sudo yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
     sudo yum install -y openstack-packstack vim
     sudo yum install "openstack-heat-*" python-heatclient
@@ -53,4 +53,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 SCRIPT
 
   config.vm.provision "shell", inline: $script
+  config.vm.provision "shell", inline: "echo \"vagrant is done, your password file in /root/keystonerc_admin\" "
 end
