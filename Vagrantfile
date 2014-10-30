@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--cpus", 4]
     v.customize ["modifyvm", :id, "--hwvirtex", "on"]
     v.customize ["modifyvm", :id, "--ioapic", "on"]
-    v.customize ["modifyvm", :id, "--memory", 4096]
+    v.customize ["modifyvm", :id, "--memory", 5000]
     v.customize ["modifyvm", :id, "--pae", "on"]
   end
 
@@ -35,6 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     sudo yum update -y
 
+    sudo yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
     sudo yum install -y python-qpid python-httplib2 python-simplejson python-iso8601 python-futures 
     sudo yum install -y python-iso8601 python-keyring python-kombu python-posix_ipc 
     sudo yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
